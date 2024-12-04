@@ -46,7 +46,7 @@ namespace api.Controllers
 
             if (existingItem != null)
             {
-                return Conflict(new { message = "A fridge item with the same name and expiry date already exists." });
+                return Conflict(new { message = "A fridge item with the same name already exists." });
             }
 
             fridge.Id = 0;

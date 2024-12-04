@@ -54,37 +54,31 @@ function App() {
     }));
   };
 
-  // Add new item
-  // Add new item
-const handleAddItem = async (e) => {
-  e.preventDefault();
-
-  // Check for duplicate item names
-  const duplicateItem = items.find(
-    (item) => item.name.toLowerCase() === newItem.name.toLowerCase()
-  );
-  if (duplicateItem) {
-    alert('This item is already in the fridge!');
-    return;
-  }
-
-  try {
-    const response = await axios.post(`${API_BASE_URL}/api/fridge`, {
-      name: newItem.name,
-      expiryDate: newItem.expiryDate,
-    });
-
-    // Assuming the response is the new item
-    setItems((prev) => [...prev, response.data]);
-
-    // Reset form
-    setNewItem({ name: '', expiryDate: '' });
-  } catch (error) {
-    console.error('Error adding item:', error);
-  }
-};
-
-
+  const handleAddItem = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const response = await axios.post(`${API_BASE_URL}/api/fridge`, {
+        name: newItem.name,
+        expiryDate: newItem.expiryDate,
+      });
+  
+      setItems((prev) => [...prev, response.data]);
+  
+      // Reset form
+      setNewItem({ name: '', expiryDate: '' });
+      alert("Fridge item added successfully!"); // Success alert
+    } catch (error) {
+      // Check if the error is a 409 Conflict (duplicate item)
+      if (error.response && error.response.status === 409) {
+        alert(error.response.data.message); // Show the error message from the backend
+      } else {
+        console.error('Error adding item:', error);
+        alert("An error occurred while adding the fridge item.");
+      }
+    }
+  };
+  
   // Delete item with confirmation
   const handleDeleteItem = async (id) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this item?');
