@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.heading{
+  color: #003A59;
+}
+
+.button{
+  background-color: #00598D;
+}
+
+.background{
+  background: linear-gradient(to bottom, 
+  white 45%,  /* Top 30% is white */
+  #f4faff 45%, /* Solid line (Alive Blue) starts from 30% */
+  #f4faff 100% /* Bottom 70% is Alive Blue */
+);
+
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+body{
+  min-height: 100vh;
+  background: linear-gradient(to bottom, 
+    white 340px,  /* Top part (white) up to 350px */
+    #f4faff 340px  /* Bottom part (#f4faff) starting from 350px */
+  );
+}
+
+.status{
+  color: #003A59;
+}
